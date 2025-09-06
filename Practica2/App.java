@@ -1,7 +1,10 @@
+import javax.swing.*;
 
 class inicioPAM {
     public String ReglamentoPOO(){
-        return          
+        return    
+        "Reglamento de clase\r\n" + //        
+        "\n"+//      
         "1.Se requiere 80% de asistencia para tener derecho a evaluación parcial y 80% de trabajos en clase.\r\n" + //
         "2.Se permiten 10 minutos de tolerancia y si el alumno llega después de este tiempo puede permanecer en la clase, pero no se tomará la asistencia (Solamente en los horarios de\r\n" + //
         "inicio:7:00a.m y 14:00 p.m).\r\n" + //
@@ -28,6 +31,8 @@ class inicioPAM {
     }
     public String Lineamientos(){
         return 
+        "Lineamientos de classroom \r\n" + //
+        "\n"+//
         "1.Entregar los trabajos \r\n" + //
         "2.Entrega PDF \r\n" + //
         "3.Avisos de clase \r\n" + //
@@ -35,10 +40,73 @@ class inicioPAM {
     }
     public String FechasdeParciales(){
         return 
-        "Fechas de parciales: \n Primer parcial : 01 de Octubre del 2025 \n";
+        "Fechas de parciales: \n"+//
+        "\n"+//
+        "Primer parcial 01 de Octubre del 2025 \r\n" + //
+        "Segundo parcial 5 de Noviembre\r\n" + //
+        "Tercer parcial 3 de Diciembre\r\n" + //
+        "Finales 8 de Diciembre";
     }
     public String PorcentajesPorParcial(){
         return 
-        "Evidencia de Conocimiento \r\n";
+        "Porcentajes por parcial \r\n" + //
+        "\n"+//
+        "Evidencia de Conocimiento \r\n" +//
+        "primer parcial 40% \r\n" + //
+        "Segundo parcial 40% \r\n" + //
+        "Tercer parcial 20% \r\n" + //
+        "\n"+//
+        "Evidencia de Desempeño \r\n" + //
+        "Primer parcial 20% \r\n" + //
+        "Segundo parcial 20% \r\n" + //
+        "Tercer parcial 10% \r\n" + //
+        "\n"+//
+        "Evidencia de Producto: \r\n" + //
+        "Primer parcia 30% \r\n" + //
+        "Segundo parcial 20% \r\n" + //
+        "Tercer parcial 40% \r\n" + //
+        "\n"+//
+        "Proyecto Integrador: \r\n" + //
+        "Primer parcial 10% \r\n" + //
+        "Segundo parcial 20% \r\n" + //
+        "Tercer parcial 30%";
+        
+    }
+}
+// Clase principal con la interfaz gráfica
+public class App {
+    public static void main(String[] args) {
+        inicioPAM info = new inicioPAM();
+
+        JFrame ventana = new JFrame("Información POO");
+        ventana.setSize(400, 300);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setLayout(null);
+
+        JButton Reglamento = new JButton("Reglamento POO");
+        Reglamento.setBounds(100, 30, 200, 30);
+        ventana.add(Reglamento);
+
+        JButton Lineamientos = new JButton("Lineamientos Classroom");
+        Lineamientos.setBounds(100, 70, 200, 30);
+        ventana.add(Lineamientos);
+
+        JButton Fechas = new JButton("Fechas de Parciales");
+        Fechas.setBounds(100, 110, 200, 30);
+        ventana.add(Fechas);
+
+        // Botón 4 - Porcentajes
+        JButton Porcentajes = new JButton("Porcentajes por Parcial");
+        Porcentajes.setBounds(100, 150, 200, 30);
+        ventana.add(Porcentajes);
+
+        // Eventos de los botones
+        Reglamento.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.ReglamentoPOO()));
+        Lineamientos.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.Lineamientos()));
+        Fechas.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.FechasdeParciales()));
+        Porcentajes.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.PorcentajesPorParcial()));
+
+        // Mostrar ventana
+        ventana.setVisible(true);
     }
 }
