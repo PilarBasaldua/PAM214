@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 class inicioPAM {
     public String ReglamentoPOO(){
         return    
@@ -73,7 +72,7 @@ class inicioPAM {
         
     }
 }
-// Clase principal con la interfaz gráfica
+
 public class App {
     public static void main(String[] args) {
         inicioPAM info = new inicioPAM();
@@ -95,18 +94,15 @@ public class App {
         Fechas.setBounds(100, 110, 200, 30);
         ventana.add(Fechas);
 
-        // Botón 4 - Porcentajes
         JButton Porcentajes = new JButton("Porcentajes por Parcial");
         Porcentajes.setBounds(100, 150, 200, 30);
         ventana.add(Porcentajes);
 
-        // Eventos de los botones
         Reglamento.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.ReglamentoPOO()));
         Lineamientos.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.Lineamientos()));
         Fechas.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.FechasdeParciales()));
         Porcentajes.addActionListener(e -> JOptionPane.showMessageDialog(ventana, info.PorcentajesPorParcial()));
 
-        // Mostrar ventana
         ventana.setVisible(true);
     }
 }
