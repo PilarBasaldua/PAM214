@@ -31,7 +31,7 @@ console.log(nombres); //["Laptop", Monitor""]
 const personas = [
     { nombre: "Ana", edad: 22},
     { nombre: "Luis", edad: 35},
-    { nombre: "María", edad: 28}
+    { nombre: "Maria", edad: 28}
 ];
 //Tu código aquí
 
@@ -41,7 +41,7 @@ console.log("persona encontrada: ", personaLuis);
 
 //2.Imprimir el nombre de cada persona con su edad 
 personas.forEach(persona => {
-    console.log(persona.nombre + "tiene" + persona.edad + "años");
+    console.log(persona.nombre + " tiene " + persona.edad + " años ");
 });
 
 //3. Sumar todas las edades 
