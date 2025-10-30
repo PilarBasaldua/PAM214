@@ -14,11 +14,11 @@ export default function Ejemplo() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false); // cambia el estado para ocultar el splash
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer); // limpia el temporizador al desmontar el componente
   }, []);
 
-  // Si "showSplash" es verdadero, se muestra esta vista (pantalla de bienvenida)
+  // Si "showSplash" es verdadero, se muestra esta vista (pantalla de bienvenida) 
   if (showSplash) {
     return (
       <View style={styles.splashContainer}>
@@ -42,52 +42,51 @@ export default function Ejemplo() {
         {/* View que contiene el texto y el botón, con un fondo semitransparente */}
         <View style={styles.overlay}>
           {/* Texto principal */}
-          <Text style={styles.title}>Explora nuestros cursos</Text>
+          <Text style={styles.title}>Bienvenido!</Text>
 
-          {/* Botón que muestra una alerta al presionarlo */}
-          <Button title="Comenzar" onPress={() => alert('¡Bienvenido!')} />
         </View>
       </ImageBackground>
     </SafeAreaView>
   );
 }
 
-// Objeto "styles" donde se definen los estilos de todos los elementos
+// Estilos
 const styles = StyleSheet.create({
   
-  // Estilo del contenedor del splash (pantalla de bienvenida)
+
   splashContainer: {
-    flex: 1, // ocupa toda la pantalla
-    backgroundColor: '#4682B4', // color azul de fondo
-    justifyContent: 'center', // centra el contenido verticalmente
-    alignItems: 'center', // centra el contenido horizontalmente
+    flex: 1, 
+    backgroundColor: '#000000ff', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
 
-  // Estilo del texto del splash
+  
   splashText: {
-    fontSize: 24, // tamaño del texto
-    color: '#fff', // color blanco
+    fontSize: 24, 
+    color: '#fff', 
   },
 
-  // Estilo de la imagen de fondo
+  
   background: {
-    flex: 1, // ocupa todo el espacio disponible
-    justifyContent: 'center', // centra el contenido dentro de la imagen
-    alignItems: 'center', // centra horizontalmente
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
 
-  // Estilo del recuadro oscuro semitransparente que está encima de la imagen
+  
   overlay: {
-    backgroundColor: 'rgba(0,0,0,0.5)', // negro con 50% de transparencia
-    padding: 20, // espacio interno
-    borderRadius: 10, // esquinas redondeadas
+    backgroundColor: 'rgba(0,0,0,0.5)', 
+    padding: 20, 
+    borderRadius: 10, 
   },
 
-  // Estilo del título principal
+  
   title: {
-    fontSize: 28, // tamaño del texto
-    color: '#fff', // color blanco
-    marginBottom: 10, // espacio debajo del texto
-    textAlign: 'center', // centrado
+    fontSize: 28, 
+    color: '#fff', 
+    marginBottom: 10, 
+  resizeMode: 10,
+    textAlign: 'center', 
   },
 });
