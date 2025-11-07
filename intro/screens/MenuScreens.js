@@ -1,9 +1,12 @@
-import { Text, StyleSheet, View, Button } from 'react-native';
+import { Text, StyleSheet, View, Button, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './BotonesScreen';
-import Ejemplo from './Ejemplo'; // 👈 Pantalla que quieres mostrar
+import Ejemplo from './Ejemplo';
 import TextImputScreen from './TextImputScreen'; 
+import Repaso from './Repaso';
+import ScrollView from './ScrollView';
+import ActivityScreen from './ActivityScreen';
 
 export default function MenuScreens() {
   const [screen, setScreen] = useState('menu');
@@ -13,10 +16,16 @@ export default function MenuScreens() {
       return <ContadorScreen />;
     case 'botones':
       return <BotonesScreen />;
-    case 'ejemplo':   // 👈 Caso correcto para Ejemplo.js
+    case 'ejemplo':
       return <Ejemplo />;
-    case 'text':   // 👈 Caso correcto para Ejemplo.js
+    case 'text':
       return <TextImputScreen />;
+    case 'repaso1':
+      return <Repaso />;
+    case 'scroll':
+      return<ScrollView/>;
+    case 'activity':
+      return <ActivityScreen />;
     case 'menu':
     default:
       return (
@@ -27,38 +36,46 @@ export default function MenuScreens() {
             <View style={styles.buttonSquare}>
               <Button
                 onPress={() => setScreen('contador')}
-                title='Pract:Contador'
+                title='Contador'
                 color="#F4A7B9"
               />
             </View>
             <View style={styles.buttonSquare}>
               <Button
                 onPress={() => setScreen('botones')}
-                title='Pract:Buttons'
+                title='Buttons'
                 color="#F4A7B9"
               />
             </View>
 
             <View style={styles.buttonSquare}>
               <Button 
-                onPress={() => setScreen('ejemplo')} // 👈 Aquí vamos a Ejemplo
-                title='Pract:ImageBackground' 
+                onPress={() => setScreen('ejemplo')} 
+                title='ImageBackground' 
+                color="#F4A7B9" 
+              />
+            </View>
+            <View style={styles.buttonSquare}>
+              <Button 
+                onPress={() => setScreen('repaso1')} 
+                title='Repaso 1' 
                 color="#F4A7B9" 
               />
             </View>
 
-            {/* Los demás botones aún no hacen nada */}
+             <View style={styles.buttonSquare}>
+              <Button 
+                onPress={() => setScreen('scroll')} 
+                title='ScrollView' 
+                color="#F4A7B9" 
+              />
+            </View>
+
             <View style={styles.buttonSquare}>
               <Button 
-              onPress={() => setScreen('text')} 
-              title='Text Input & Alert' 
+              onPress={() => setScreen('activity')}
+              title='ActivityScreen' 
               color="#F4A7B9" />
-            </View>
-            <View style={styles.buttonSquare}>
-              <Button title='ScrollView' color="#F4A7B9" />
-            </View>
-            <View style={styles.buttonSquare}>
-              <Button title='ActivityIndicator' color="#F4A7B9" />
             </View>
             <View style={styles.buttonSquare}>
               <Button title='FlatList y Section List' color="#F4A7B9" />
@@ -95,7 +112,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 45,
     marginVertical: 6,
-    borderRadius: 0, // botones cuadrados
+    borderRadius: 0,
     overflow: 'hidden',
   },
 });
