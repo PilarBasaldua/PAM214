@@ -1,17 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import {Examen} from './Examen';
+import Examen from './Esxamen'
 
-export default function App() {
-    const [screen, setScreen] = useState('Examen 2 parcial');
+export default function App(){
+  return (
+    <Examen></Examen>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
- 

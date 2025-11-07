@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, StyleSheet, ImageBackground, Button, SafeAreaView } from 'react-native';
+import {View, Text, StyleSheet, ImageBackground, Button, SafeAreaView, Alert } from 'react-native';
 
 export default function Examen(){
     const [showSplash, setShowSplash] = useState(true);
@@ -34,6 +34,17 @@ export default function Examen(){
             </ImageBackground>
         </safeAreaView>
     );
+    const mostrarAlerta = () =>{
+        if(nombre.trim() === ''){
+            alert(<Button>Guardar</Button>)
+            Alert.alert(<Button>Cancelar</Button>)
+        }
+    }
+    <Button
+    title="Editar Perfil"
+    onPress={mostrarAlerta}
+    color="#f7b9dbff"
+    />
 }
 
 const styles = StyleSheet.create({
