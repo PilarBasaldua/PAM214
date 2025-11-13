@@ -7,6 +7,7 @@ import TextImputScreen from './TextImputScreen';
 import Repaso from './Repaso';
 import ScrollView from './ScrollView';
 import ActivityScreen from './ActivityScreen';
+import List from './List';
 
 export default function MenuScreens() {
   const [screen, setScreen] = useState('menu');
@@ -26,6 +27,8 @@ export default function MenuScreens() {
       return<ScrollView/>;
     case 'activity':
       return <ActivityScreen />;
+    case 'list':
+      return <List />;
     case 'menu':
     default:
       return (
@@ -78,7 +81,10 @@ export default function MenuScreens() {
               color="#F4A7B9" />
             </View>
             <View style={styles.buttonSquare}>
-              <Button title='FlatList y Section List' color="#F4A7B9" />
+              <Button 
+              onPress={() => setScreen('list')}
+              title='FlatList y Section List' 
+              color="#F4A7B9" />
             </View>
             <View style={styles.buttonSquare}>
               <Button title='Modal' color="#F4A7B9" />
