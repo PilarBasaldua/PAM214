@@ -42,14 +42,14 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   contenedorMain: {
     flex: 1,
-    backgroundColor: '#f7a7d8ff',
+    backgroundColor: '#f0b9dbff',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
 
   botonAbrir: {
-    backgroundColor: '#82ced9ff',
+    backgroundColor: '#055561ff',
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 10,

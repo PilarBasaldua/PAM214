@@ -8,6 +8,8 @@ import Repaso from './Repaso';
 import ScrollView from './ScrollView';
 import ActivityScreen from './ActivityScreen';
 import List from './List';
+import ModalScreen from './ModalScreen';
+import BottomSheet from './BottomSheet';
 
 export default function MenuScreens() {
   const [screen, setScreen] = useState('menu');
@@ -29,6 +31,10 @@ export default function MenuScreens() {
       return <ActivityScreen />;
     case 'list':
       return <List />;
+    case 'modal':
+      return <ModalScreen />;
+    case 'bottom':
+      return <BottomSheet />;
     case 'menu':
     default:
       return (
@@ -87,10 +93,16 @@ export default function MenuScreens() {
               color="#F4A7B9" />
             </View>
             <View style={styles.buttonSquare}>
-              <Button title='Modal' color="#F4A7B9" />
+              <Button 
+              onPress={() => setScreen('modal')}
+              title='ModalScreen' 
+              color="#F4A7B9" />
             </View>
             <View style={styles.buttonSquare}>
-              <Button title='Bottom Sheet' color="#F4A7B9" />
+              <Button 
+              onPress={() => setScreen('bottom')}
+              title='BottomSheet' 
+              color="#F4A7B9" />
             </View>
           </View>
         </View>
