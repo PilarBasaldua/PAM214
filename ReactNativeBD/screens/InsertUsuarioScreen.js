@@ -9,140 +9,121 @@ export default function InsertUsuarioScreen() {
 
   const [usuarios, setUsuarios] = useState([]);
   const [nombre, setNombre] = useState('');
+  const [editandoId, setEditandoId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [guardando, setGuardando] = useState(false);
 
-  // SELECT - cargar usuarios
   const cargarUsuarios = useCallback(async () => {
     try {
       setLoading(true);
       const data = await controller.obtenerUsuarios();
       setUsuarios(data);
-    } catch (error) {
-      Alert.alert('Error', error.message);
     } finally {
       setLoading(false);
     }
   }, []);
 
-  // Inicializar y cargar datos
   useEffect(() => {
     const init = async () => {
       await controller.initialize();
       await cargarUsuarios();
     };
     init();
-
     controller.addListener(cargarUsuarios);
-    return () => {
-      controller.removeListener(cargarUsuarios);
-    };
+    return () => controller.removeListener(cargarUsuarios);
   }, [cargarUsuarios]);
 
-  // INSERT - agregar usuario
   const handleAgregar = async () => {
-    if (guardando) return;
-    try {
-      setGuardando(true);
-      const usuarioCreado = await controller.crearUsuario(nombre);
-
-      // ✅ ALERTA corregida con template literals
-      Alert.alert(
-        'Usuario Creado',
-        `${usuarioCreado.nombre} guardado con ID: ${usuarioCreado.id}`
-      );
-
-      setNombre('');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    } finally {
-      setGuardando(false);
-    }
+    if (!nombre) return;
+    setGuardando(true);
+    await controller.crearUsuario(nombre);
+    setNombre('');
+    setGuardando(false);
   };
 
-  // Renderizar cada usuario
-  const renderUsuario = ({ item, index }) => (
+  const handleEditar = (usuario) => {
+    setEditandoId(usuario.id);
+    setNombre(usuario.nombre);
+  };
+
+  const handleGuardarEdicion = async () => {
+    if (!nombre) return;
+    setGuardando(true);
+    await controller.actualizarUsuario(editandoId, nombre);
+    setNombre('');
+    setEditandoId(null);
+    setGuardando(false);
+  };
+
+  const handleEliminar = async (id) => {
+    Alert.alert(
+      "Eliminar",
+      "¿Seguro que deseas eliminar este usuario?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: async () => await controller.eliminarUsuario(id)
+        }
+      ]
+    );
+  };
+
+  const renderUsuario = ({ item }) => (
     <View style={styles.userItem}>
-      <View style={styles.userNumber}>
-        <Text style={styles.userNumberText}>{index + 1}</Text>
-      </View>
       <View style={styles.userInfo}>
         <Text style={styles.userName}>{item.nombre}</Text>
-        <Text style={styles.userId}>ID: {item.id}</Text>
-        <Text style={styles.userDate}>
-          {new Date(item.fechaCreacion).toLocaleDateString('es-MX', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </Text>
+      </View>
+
+      <View style={styles.actions}>
+        <TouchableOpacity onPress={() => handleEditar(item)}>
+          <Text style={styles.editText}>Editar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => handleEliminar(item.id)}>
+          <Text style={styles.deleteText}>Eliminar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>CRUD Completo</Text>
 
-      {/* Zona del encabezado */}
-      <Text style={styles.title}> INSERT & SELECT</Text>
-      <Text style={styles.subtitle}>
-        {Platform.OS === 'web' ? ' WEB (LocalStorage)' : ` ${Platform.OS.toUpperCase()} (SQLite)`}
-      </Text>
-
-      {/* Zona del INSERT */}
       <View style={styles.insertSection}>
-        <Text style={styles.sectionTitle}> Insertar Usuario</Text>
-        
+        <Text style={styles.sectionTitle}>
+          {editandoId ? "Editar Usuario" : "Nuevo Usuario"}
+        </Text>
+
         <TextInput
           style={styles.input}
-          placeholder="Escribe el nombre del usuario"
+          placeholder="Nombre del usuario"
           value={nombre}
           onChangeText={setNombre}
-          editable={!guardando}
         />
 
-        <TouchableOpacity 
-          style={[styles.button, guardando && styles.buttonDisabled]} 
-          onPress={handleAgregar}
-          disabled={guardando} >
-
+        <TouchableOpacity
+          style={[styles.button, guardando && styles.buttonDisabled]}
+          onPress={editandoId ? handleGuardarEdicion : handleAgregar}
+          disabled={guardando}
+        >
           <Text style={styles.buttonText}>
-            {guardando ? ' Guardando...' : 'Agregar Usuario'}
+            {editandoId ? "Guardar Cambios" : "Agregar Usuario"}
           </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Zona del SELECT */}
-      <View style={styles.selectSection}>
-        <View style={styles.selectHeader}>
-          <Text style={styles.sectionTitle}>Lista de Usuarios</Text>
-          <TouchableOpacity 
-            style={styles.refreshButton}
-            onPress={cargarUsuarios} >
-            <Text style={styles.refreshText}>Recargar</Text>
-          </TouchableOpacity>
-        </View>
-
-        {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#007AFF" />
-            <Text style={styles.loadingText}>Cargando usuarios...</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={usuarios}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderUsuario}
-            ListEmptyComponent={
-              <View style={styles.emptyContainer}>
-                <Text style={styles.emptyText}> No hay usuarios</Text>
-                <Text style={styles.emptySubtext}>Agrega el primero arriba</Text>
-              </View>
-            }
-            contentContainerStyle={usuarios.length === 0 && styles.emptyList}
-          />
-        )}
-      </View>
+      {loading ? (
+        <ActivityIndicator size="large" color="#007AFF" />
+      ) : (
+        <FlatList
+          data={usuarios}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderUsuario}
+        />
+      )}
     </View>
   );
 }
@@ -326,3 +307,4 @@ const styles = StyleSheet.create({
     color: '#1976D2',
   },
 });
+
